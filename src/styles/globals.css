@@ -12,8 +12,7 @@
   --border: #E4E4EB;
 }
 
-.dark,
-:root {
+.dark {
   --bg-primary: #0A0A0F;
   --bg-secondary: #12121A;
   --bg-tertiary: #1A1A25;
@@ -41,6 +40,11 @@
 html {
   background: var(--bg-primary);
   color: var(--text-primary);
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+html.dark {
   color-scheme: dark;
 }
 
