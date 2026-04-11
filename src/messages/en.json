@@ -96,7 +96,8 @@
     }
   },
   "contact": {
-    "title": "Contact",
+    "sectionLabel": "contact",
+    "title": "Let's work together",
     "subtitle": "Got an idea, a project, an opportunity? Let's talk.",
     "form": {
       "name": "Name",
@@ -105,7 +106,16 @@
       "send": "Send",
       "sending": "Sending…",
       "success": "Message sent, thanks!",
-      "error": "Oops, something went wrong."
+      "error": "Oops, something went wrong.",
+      "placeholders": {
+        "name": "Your name",
+        "email": "you@example.com",
+        "message": "Tell me about your project…"
+      },
+      "errors": {
+        "required": "Please fill in all fields.",
+        "email": "Invalid email address."
+      }
     }
   },
   "common": {
