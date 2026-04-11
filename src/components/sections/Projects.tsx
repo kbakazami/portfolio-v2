@@ -13,7 +13,7 @@ import {
 import { FadeIn } from "@/components/animations/FadeIn";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ProjectCard } from "@/components/ui/ProjectCard";
-import { getProjects } from "@/data/projects";
+import { getProjects, type LocalizedProject } from "@/data/projects";
 import type { ProjectCategory } from "@/types";
 import { cn } from "@/lib/utils";
 
@@ -37,13 +37,16 @@ const gridVariants: Variants = {
   },
 };
 
-export function Projects() {
+export function Projects({ data }: { data?: LocalizedProject[] | null }) {
   const t = useTranslations("projects");
   const locale = useLocale() as "fr" | "en";
   const shouldReduceMotion = useReducedMotion();
   const [filter, setFilter] = useState<FilterKey>("all");
 
-  const projects = useMemo(() => getProjects(locale), [locale]);
+  const projects = useMemo(
+    () => (data && data.length > 0 ? data : getProjects(locale)),
+    [data, locale],
+  );
 
   const filtered = useMemo(() => {
     if (filter === "all") return projects;

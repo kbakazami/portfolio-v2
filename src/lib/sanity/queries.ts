@@ -1,4 +1,6 @@
 import { groq } from "next-sanity";
+import type { PortableTextBlock } from "@portabletext/react";
+import type { Image as SanityImage } from "sanity";
 
 import { sanityClient } from "./client";
 
@@ -88,18 +90,106 @@ export const siteSettingsQuery = groq`
   }
 `;
 
-export const getAllProjects = () => sanityClient.fetch(allProjectsQuery);
+export type SanityProjectCategory = "pro" | "perso" | "lab";
+export type SanityProjectVisibility = "public" | "private";
+
+export interface SanityProjectSummary {
+  _id: string;
+  title: string;
+  slug: string;
+  description?: string;
+  coverImage?: SanityImage;
+  category: SanityProjectCategory;
+  featured?: boolean;
+  visibility?: SanityProjectVisibility;
+  technologies?: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  demoVideoUrl?: string;
+  docsUrl?: string;
+  order?: number;
+}
+
+export interface SanityProjectMetric {
+  label: string;
+  value: string;
+}
+
+export interface SanityProjectDetail extends SanityProjectSummary {
+  gallery?: SanityImage[];
+  context?: PortableTextBlock[];
+  solution?: PortableTextBlock[];
+  highlights?: string[];
+  metrics?: SanityProjectMetric[];
+}
+
+export interface SanityAbout {
+  bio?: PortableTextBlock[];
+  photo?: SanityImage;
+  funFacts?: string[];
+}
+
+export type SanitySkillCategory = "frontend" | "backend" | "devops" | "tools";
+
+export interface SanitySkill {
+  _id: string;
+  name: string;
+  category: SanitySkillCategory;
+  level?: number;
+  order?: number;
+}
+
+export interface SanityExperience {
+  _id: string;
+  title: string;
+  company: string;
+  location?: string;
+  startDate: string;
+  endDate?: string;
+  description?: PortableTextBlock[];
+  order?: number;
+}
+
+export interface SanitySocialLinks {
+  github?: string;
+  linkedin?: string;
+  email?: string;
+}
+
+export interface SanitySiteSettings {
+  siteTitle?: string;
+  description?: string;
+  socialLinks?: SanitySocialLinks;
+  heroTexts?: string[];
+}
+
+async function safeFetch<T>(query: string, params?: Record<string, unknown>): Promise<T | null> {
+  if (!sanityClient) return null;
+  try {
+    return await sanityClient.fetch<T>(query, params ?? {});
+  } catch (error) {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("[sanity] fetch failed, falling back:", error);
+    }
+    return null;
+  }
+}
+
+export const getAllProjects = () =>
+  safeFetch<SanityProjectSummary[]>(allProjectsQuery);
 
 export const getProjectBySlug = (slug: string) =>
-  sanityClient.fetch(projectBySlugQuery, { slug });
+  safeFetch<SanityProjectDetail | null>(projectBySlugQuery, { slug });
 
 export const getProjectSlugs = () =>
-  sanityClient.fetch<string[]>(projectSlugsQuery);
+  safeFetch<string[]>(projectSlugsQuery);
 
-export const getAbout = () => sanityClient.fetch(aboutQuery);
+export const getAbout = () => safeFetch<SanityAbout | null>(aboutQuery);
 
-export const getSkills = () => sanityClient.fetch(skillsQuery);
+export const getSkills = () => safeFetch<SanitySkill[]>(skillsQuery);
 
-export const getExperiences = () => sanityClient.fetch(experiencesQuery);
+export const getExperiences = () =>
+  safeFetch<SanityExperience[]>(experiencesQuery);
 
-export const getSiteSettings = () => sanityClient.fetch(siteSettingsQuery);
+export const getSiteSettings = () =>
+  safeFetch<SanitySiteSettings | null>(siteSettingsQuery);

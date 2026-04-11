@@ -8,12 +8,30 @@ import {
   useReducedMotion,
 } from "framer-motion";
 
+import { PortableText } from "@portabletext/react";
+
 import { Badge } from "@/components/ui/Badge";
 import { BrowserFrame } from "@/components/ui/BrowserFrame";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/animations/FadeIn";
-import type { LocalizedProject } from "@/data/projects";
+import type { LocalizedProject, RichText } from "@/data/projects";
 import { cn } from "@/lib/utils";
+
+function RichTextView({ value }: { value: RichText | undefined }) {
+  if (!value) return null;
+  if (typeof value === "string") {
+    if (!value.trim()) return null;
+    return (
+      <p className="text-base leading-relaxed text-text-secondary">{value}</p>
+    );
+  }
+  if (!Array.isArray(value) || value.length === 0) return null;
+  return (
+    <div className="flex flex-col gap-3 text-base leading-relaxed text-text-secondary">
+      <PortableText value={value} />
+    </div>
+  );
+}
 
 interface NavTarget {
   slug: string;
@@ -125,20 +143,33 @@ export function ProjectCaseStudy({
                   <motion.div
                     key={galleryIndex}
                     className="absolute inset-0 flex items-center justify-center"
-                    style={{
-                      background:
-                        GALLERY_PLACEHOLDER_GRADIENTS[
-                          galleryIndex % GALLERY_PLACEHOLDER_GRADIENTS.length
-                        ],
-                    }}
+                    style={
+                      project.gallery && project.gallery[galleryIndex]
+                        ? undefined
+                        : {
+                            background:
+                              GALLERY_PLACEHOLDER_GRADIENTS[
+                                galleryIndex % GALLERY_PLACEHOLDER_GRADIENTS.length
+                              ],
+                          }
+                    }
                     initial={shouldReduceMotion ? false : { opacity: 0, x: 40 }}
                     animate={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
                     exit={shouldReduceMotion ? undefined : { opacity: 0, x: -40 }}
                     transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <span className="font-mono text-sm uppercase tracking-[0.2em] text-white/80">
-                      {project.title} — {galleryIndex + 1} / {galleryLength}
-                    </span>
+                    {project.gallery && project.gallery[galleryIndex] ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={project.gallery[galleryIndex]}
+                        alt={`${project.title} — ${galleryIndex + 1} / ${galleryLength}`}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <span className="font-mono text-sm uppercase tracking-[0.2em] text-white/80">
+                        {project.title} — {galleryIndex + 1} / {galleryLength}
+                      </span>
+                    )}
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -187,17 +218,13 @@ export function ProjectCaseStudy({
               <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--accent-primary)]">
                 // {labels.context}
               </h2>
-              <p className="text-base leading-relaxed text-text-secondary">
-                {project.context}
-              </p>
+              <RichTextView value={project.context} />
             </div>
             <div className="flex flex-col gap-3">
               <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--accent-primary)]">
                 // {labels.solution}
               </h2>
-              <p className="text-base leading-relaxed text-text-secondary">
-                {project.solution}
-              </p>
+              <RichTextView value={project.solution} />
             </div>
           </div>
         </FadeIn>

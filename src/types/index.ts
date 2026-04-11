@@ -17,8 +17,8 @@ export interface Project {
   featured: boolean;
   visibility: ProjectVisibility;
   technologies: string[];
-  context?: string;
-  solution?: string;
+  // context/solution are extended in LocalizedProject to support rich text
+
   highlights?: string[];
   metrics?: ProjectMetric[];
   githubUrl?: string;

@@ -22,6 +22,8 @@ const inter = Inter({
   display: "swap",
 });
 
+const THEME_INIT_SCRIPT = `<script>(function(){try{var s=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme: dark)').matches;var t=s==='light'||s==='dark'?s:(m?'dark':'light');var r=document.documentElement;if(t==='dark'){r.classList.add('dark');}r.style.colorScheme=t;}catch(e){document.documentElement.classList.add('dark');}})();</script>`;
+
 const SITE_URL = "https://kba.dev";
 const SITE_TITLE = "Kba — Full-Stack Developer";
 const SITE_DESCRIPTION =
@@ -96,14 +98,12 @@ export default async function LocaleLayout({
       className={`${jetbrainsMono.variable} ${inter.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme: dark)').matches;var t=s==='light'||s==='dark'?s:(m?'dark':'light');var r=document.documentElement;if(t==='dark'){r.classList.add('dark');}r.style.colorScheme=t;}catch(e){document.documentElement.classList.add('dark');}})();`,
-          }}
-        />
-      </head>
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary">
+        <span
+          style={{ display: "none" }}
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+        />
         <NextIntlClientProvider>
           <ThemeProvider>
             <Header />

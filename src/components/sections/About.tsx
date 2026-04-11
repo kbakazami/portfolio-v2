@@ -3,8 +3,11 @@
 import { useTranslations } from "next-intl";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 
+import { PortableText } from "@portabletext/react";
+
 import { FadeIn } from "@/components/animations/FadeIn";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
+import type { AboutData } from "@/lib/portfolio-data";
 
 const STACK = [
   "React",
@@ -42,8 +45,9 @@ function Tag({ label }: { label: string }) {
   );
 }
 
-export function About() {
+export function About({ data }: { data?: AboutData | null }) {
   const t = useTranslations("about");
+  const hasSanityBio = Boolean(data?.bio && data.bio.length > 0);
 
   return (
     <section id="about" className="relative px-6 py-24 md:py-32">
@@ -66,9 +70,18 @@ export function About() {
               className="relative flex h-40 w-40 items-center justify-center overflow-hidden rounded-xl border border-border bg-bg-secondary sm:h-48 sm:w-48 md:h-56 md:w-56"
               aria-label={t("avatarAlt")}
             >
-              <span className="font-mono text-6xl font-semibold text-[color:var(--accent-primary)] sm:text-7xl md:text-8xl">
-                K
-              </span>
+              {data?.photo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={data.photo}
+                  alt={t("avatarAlt")}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              ) : (
+                <span className="font-mono text-6xl font-semibold text-[color:var(--accent-primary)] sm:text-7xl md:text-8xl">
+                  K
+                </span>
+              )}
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.08))]"
@@ -77,41 +90,62 @@ export function About() {
           </FadeIn>
 
           <div className="flex flex-col gap-6">
-            <FadeIn delay={0.1}>
-              <p className="text-base leading-relaxed text-text-secondary md:text-lg">
-                {t.rich("p1", {
-                  strong: (chunks) => (
-                    <strong className="font-medium text-text-primary">
-                      {chunks}
-                    </strong>
-                  ),
-                })}
-              </p>
-            </FadeIn>
+            {hasSanityBio ? (
+              <FadeIn delay={0.1}>
+                <div className="prose-about flex flex-col gap-4 text-base leading-relaxed text-text-secondary md:text-lg">
+                  <PortableText
+                    value={data!.bio!}
+                    components={{
+                      marks: {
+                        strong: ({ children }) => (
+                          <strong className="font-medium text-text-primary">
+                            {children}
+                          </strong>
+                        ),
+                      },
+                    }}
+                  />
+                </div>
+              </FadeIn>
+            ) : (
+              <>
+                <FadeIn delay={0.1}>
+                  <p className="text-base leading-relaxed text-text-secondary md:text-lg">
+                    {t.rich("p1", {
+                      strong: (chunks) => (
+                        <strong className="font-medium text-text-primary">
+                          {chunks}
+                        </strong>
+                      ),
+                    })}
+                  </p>
+                </FadeIn>
 
-            <FadeIn delay={0.15}>
-              <p className="text-base leading-relaxed text-text-secondary md:text-lg">
-                {t.rich("p2", {
-                  strong: (chunks) => (
-                    <strong className="font-medium text-text-primary">
-                      {chunks}
-                    </strong>
-                  ),
-                })}
-              </p>
-            </FadeIn>
+                <FadeIn delay={0.15}>
+                  <p className="text-base leading-relaxed text-text-secondary md:text-lg">
+                    {t.rich("p2", {
+                      strong: (chunks) => (
+                        <strong className="font-medium text-text-primary">
+                          {chunks}
+                        </strong>
+                      ),
+                    })}
+                  </p>
+                </FadeIn>
 
-            <FadeIn delay={0.2}>
-              <p className="text-base leading-relaxed text-text-secondary md:text-lg">
-                {t.rich("p3", {
-                  strong: (chunks) => (
-                    <strong className="font-medium text-text-primary">
-                      {chunks}
-                    </strong>
-                  ),
-                })}
-              </p>
-            </FadeIn>
+                <FadeIn delay={0.2}>
+                  <p className="text-base leading-relaxed text-text-secondary md:text-lg">
+                    {t.rich("p3", {
+                      strong: (chunks) => (
+                        <strong className="font-medium text-text-primary">
+                          {chunks}
+                        </strong>
+                      ),
+                    })}
+                  </p>
+                </FadeIn>
+              </>
+            )}
 
             <div className="mt-2">
               <FadeIn delay={0.25}>
