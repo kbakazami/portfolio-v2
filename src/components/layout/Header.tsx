@@ -16,12 +16,12 @@ export function Header() {
   const close = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-bg-primary/70 backdrop-blur-lg">
+    <header className="sticky top-0 z-50 border-b border-border bg-bg-primary/70 backdrop-blur-lg transition-colors duration-300">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a
           href="#top"
           onClick={close}
-          className="font-mono text-base font-bold tracking-tight bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] bg-clip-text text-transparent"
+          className="rounded-md font-mono text-base font-bold tracking-tight bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] bg-clip-text text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-primary)]"
         >
           kba.dev
         </a>
@@ -34,7 +34,7 @@ export function Header() {
             <a
               key={key}
               href={`#${key}`}
-              className="font-mono text-sm text-text-secondary transition-colors hover:text-text-primary"
+              className="rounded-md font-mono text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-primary)]"
             >
               {t(key)}
             </a>
@@ -50,8 +50,9 @@ export function Header() {
           type="button"
           aria-label="Toggle menu"
           aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded-md text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-primary)] md:hidden"
         >
           <motion.span
             animate={open ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
@@ -71,6 +72,7 @@ export function Header() {
       <AnimatePresence>
         {open && (
           <motion.div
+            id="mobile-menu"
             key="mobile-drawer"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}

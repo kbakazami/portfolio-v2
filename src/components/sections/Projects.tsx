@@ -77,7 +77,7 @@ export function Projects() {
                   aria-selected={active}
                   onClick={() => setFilter(key)}
                   className={cn(
-                    "relative rounded-full border px-4 py-1.5 font-mono text-xs uppercase tracking-[0.14em] transition-colors sm:text-sm",
+                    "relative rounded-full border px-4 py-1.5 font-mono text-xs uppercase tracking-[0.14em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-primary)] sm:text-sm",
                     active
                       ? "border-[color:var(--accent-primary)]/40 text-[color:var(--accent-primary)]"
                       : "border-border text-text-secondary hover:border-[color:var(--accent-primary)]/40 hover:text-text-primary",
