@@ -61,12 +61,13 @@
     }
   },
   "skills": {
-    "title": "Compétences",
+    "sectionLabel": "compétences",
+    "title": "Ma stack",
     "categories": {
       "frontend": "Frontend",
       "backend": "Backend",
       "devops": "DevOps / Cloud",
-      "tools": "Outils"
+      "tools": "Tools & Methods"
     }
   },
   "timeline": {
