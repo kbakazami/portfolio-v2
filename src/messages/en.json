@@ -23,8 +23,13 @@
     }
   },
   "about": {
-    "title": "About",
-    "bio": ""
+    "sectionLabel": "about",
+    "title": "Who I am",
+    "avatarAlt": "Kba avatar",
+    "stackLabel": "Current stack",
+    "p1": "Full-stack developer with <strong>3 years of experience</strong>, I sharpened my craft at <strong>Magentizy</strong>, an e-commerce agency specialized in Magento, where I shipped robust platforms for demanding clients.",
+    "p2": "I am currently finishing a <strong>Master's degree at ESGI Lyon</strong>, alongside a busy professional activity. This double life taught me to balance business constraints, technical debt and continuous learning.",
+    "p3": "What drives me: <strong>software architecture</strong>, <strong>DevOps</strong> and <strong>mentoring</strong>. I build systems meant to last, and I love sharing what I learn with the teams around me."
   },
   "projects": {
     "title": "Projects",
