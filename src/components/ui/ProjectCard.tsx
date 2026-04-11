@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 import type { Project } from "@/types";
 import { cn } from "@/lib/utils";
+import { useGitHubStats } from "@/hooks/useGitHubStats";
 import { Badge } from "./Badge";
 import { BrowserFrame } from "./BrowserFrame";
 import { Button } from "./Button";
@@ -14,6 +15,15 @@ export interface ProjectGithubStats {
   commits?: number;
   branches?: number;
   loc?: number;
+}
+
+function StatSkeleton() {
+  return (
+    <div
+      aria-hidden="true"
+      className="h-3 w-16 animate-pulse rounded bg-bg-tertiary"
+    />
+  );
 }
 
 export interface ProjectCardProps {
@@ -64,12 +74,31 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const shouldReduceMotion = useReducedMotion();
   const isPrivate = project.visibility === "private";
-  const showStats =
-    !isPrivate &&
-    githubStats &&
-    (githubStats.commits !== undefined ||
-      githubStats.branches !== undefined ||
-      githubStats.loc !== undefined);
+
+  const shouldFetchStats =
+    !isPrivate && !githubStats && Boolean(project.githubUrl);
+  const { data: fetchedStats, isLoading, error } = useGitHubStats(
+    shouldFetchStats ? project.githubUrl : undefined,
+  );
+
+  const resolvedStats: ProjectGithubStats | undefined =
+    githubStats ??
+    (fetchedStats
+      ? {
+          commits: fetchedStats.commits,
+          branches: fetchedStats.branches,
+          loc: fetchedStats.loc,
+        }
+      : undefined);
+
+  const hasStatValues =
+    resolvedStats !== undefined &&
+    (resolvedStats.commits !== undefined ||
+      resolvedStats.branches !== undefined ||
+      resolvedStats.loc !== undefined);
+
+  const showStatsBlock =
+    !isPrivate && Boolean(project.githubUrl) && !error && (isLoading || hasStatValues);
 
   return (
     <motion.article
@@ -178,28 +207,42 @@ export function ProjectCard({
           ) : null}
         </div>
 
-        {showStats ? (
-          <div className="flex flex-wrap gap-4 border-t border-border pt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-text-secondary sm:text-xs">
-            {githubStats?.commits !== undefined ? (
-              <span>
-                <span className="text-text-primary">{githubStats.commits}</span>{" "}
-                commits
-              </span>
-            ) : null}
-            {githubStats?.branches !== undefined ? (
-              <span>
-                <span className="text-text-primary">{githubStats.branches}</span>{" "}
-                branches
-              </span>
-            ) : null}
-            {githubStats?.loc !== undefined ? (
-              <span>
-                <span className="text-text-primary">
-                  {githubStats.loc.toLocaleString()}
-                </span>{" "}
-                loc
-              </span>
-            ) : null}
+        {showStatsBlock ? (
+          <div className="flex flex-wrap items-center gap-4 border-t border-border pt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-text-secondary sm:text-xs">
+            {isLoading && !hasStatValues ? (
+              <>
+                <StatSkeleton />
+                <StatSkeleton />
+                <StatSkeleton />
+              </>
+            ) : (
+              <>
+                {resolvedStats?.commits !== undefined ? (
+                  <span>
+                    <span className="text-text-primary">
+                      {resolvedStats.commits}
+                    </span>{" "}
+                    commits
+                  </span>
+                ) : null}
+                {resolvedStats?.branches !== undefined ? (
+                  <span>
+                    <span className="text-text-primary">
+                      {resolvedStats.branches}
+                    </span>{" "}
+                    branches
+                  </span>
+                ) : null}
+                {resolvedStats?.loc !== undefined && resolvedStats.loc > 0 ? (
+                  <span>
+                    <span className="text-text-primary">
+                      {resolvedStats.loc.toLocaleString()}
+                    </span>{" "}
+                    loc
+                  </span>
+                ) : null}
+              </>
+            )}
           </div>
         ) : null}
       </div>

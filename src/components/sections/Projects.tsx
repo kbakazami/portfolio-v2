@@ -12,10 +12,12 @@ import {
 
 import { FadeIn } from "@/components/animations/FadeIn";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { ProjectCard } from "@/components/ui/ProjectCard";
+import { ProjectCard, type ProjectGithubStats } from "@/components/ui/ProjectCard";
 import { getProjects, type LocalizedProject } from "@/data/projects";
 import type { ProjectCategory } from "@/types";
 import { cn } from "@/lib/utils";
+
+export type ProjectStatsMap = Record<string, ProjectGithubStats>;
 
 type FilterKey = "all" | ProjectCategory;
 
@@ -37,7 +39,13 @@ const gridVariants: Variants = {
   },
 };
 
-export function Projects({ data }: { data?: LocalizedProject[] | null }) {
+export function Projects({
+  data,
+  githubStats,
+}: {
+  data?: LocalizedProject[] | null;
+  githubStats?: ProjectStatsMap;
+}) {
   const t = useTranslations("projects");
   const locale = useLocale() as "fr" | "en";
   const shouldReduceMotion = useReducedMotion();
@@ -126,6 +134,7 @@ export function Projects({ data }: { data?: LocalizedProject[] | null }) {
                   <ProjectCard
                     project={project}
                     href={`/projects/${project.slug}`}
+                    githubStats={githubStats?.[project._id]}
                   />
                 </motion.li>
               ))}
