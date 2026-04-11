@@ -45,14 +45,25 @@ export const metadata: Metadata = {
     "TypeScript",
     "Portfolio",
   ],
-  authors: [{ name: "Kba" }],
+  authors: [{ name: "Kba", url: SITE_URL }],
   creator: "Kba",
+  publisher: "Kba",
+  alternates: {
+    canonical: "/",
+    languages: {
+      fr: "/fr",
+      en: "/en",
+      "x-default": "/fr",
+    },
+  },
   openGraph: {
     type: "website",
     url: SITE_URL,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     siteName: "kba.dev",
+    locale: "fr_FR",
+    alternateLocale: ["en_US"],
     images: [
       {
         url: "/og-image.png",
@@ -71,6 +82,40 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Kba",
+  url: SITE_URL,
+  jobTitle: "Full-Stack Developer",
+  description: SITE_DESCRIPTION,
+  image: `${SITE_URL}/og-image.png`,
+  sameAs: [
+    "https://github.com/kbakazami",
+    "https://www.linkedin.com/in/kbakazami",
+  ],
+  knowsAbout: [
+    "Next.js",
+    "TypeScript",
+    "React",
+    "Node.js",
+    "DevOps",
+    "Docker",
+    "Cloud",
+  ],
 };
 
 export function generateStaticParams() {
@@ -105,6 +150,16 @@ export default async function LocaleLayout({
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-bg-secondary focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-text-primary focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-primary)]"
+        >
+          Skip to content
+        </a>
         <NextIntlClientProvider>
           <ThemeProvider>
             <Header />

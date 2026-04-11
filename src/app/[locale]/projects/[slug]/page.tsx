@@ -55,9 +55,34 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const { project } = await resolveProject(slug, locale as "fr" | "en");
   if (!project) return {};
+
+  const canonicalPath = `/${locale}/projects/${slug}`;
+  const ogImage = project.coverImage ?? "/og-image.png";
+
   return {
-    title: `${project.title} — Kba`,
+    title: project.title,
     description: project.description,
+    alternates: {
+      canonical: canonicalPath,
+      languages: {
+        fr: `/fr/projects/${slug}`,
+        en: `/en/projects/${slug}`,
+        "x-default": `/fr/projects/${slug}`,
+      },
+    },
+    openGraph: {
+      type: "article",
+      url: canonicalPath,
+      title: project.title,
+      description: project.description,
+      images: [{ url: ogImage, alt: project.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.description,
+      images: [ogImage],
+    },
   };
 }
 
