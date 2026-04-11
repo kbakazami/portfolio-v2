@@ -5,9 +5,13 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useState,
   type ReactNode,
 } from "react";
+
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 type Theme = "dark" | "light";
 
@@ -23,7 +27,7 @@ const STORAGE_KEY = "theme";
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY) as Theme | null;
     if (stored === "dark" || stored === "light") {
       setTheme(stored);
@@ -32,7 +36,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
     root.style.colorScheme = theme;

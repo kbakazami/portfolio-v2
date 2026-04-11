@@ -32,8 +32,6 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-const themeInitScript = `(function(){try{var t=localStorage.getItem('theme');var d=document.documentElement;if(t==='light'){d.classList.remove('dark');d.style.colorScheme='light';}else{d.classList.add('dark');d.style.colorScheme='dark';}}catch(e){}})();`;
-
 export default async function LocaleLayout({
   children,
   params,
@@ -55,9 +53,6 @@ export default async function LocaleLayout({
       className={`${jetbrainsMono.variable} ${inter.variable} h-full antialiased dark`}
       suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary">
         <NextIntlClientProvider>
           <ThemeProvider>

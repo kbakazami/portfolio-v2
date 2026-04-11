@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 import type { Project } from "@/types";
@@ -19,6 +20,7 @@ export interface ProjectCardProps {
   project: Project;
   githubStats?: ProjectGithubStats;
   className?: string;
+  href?: string;
 }
 
 const CATEGORY_LABELS: Record<Project["category"], string> = {
@@ -58,6 +60,7 @@ export function ProjectCard({
   project,
   githubStats,
   className,
+  href,
 }: ProjectCardProps) {
   const shouldReduceMotion = useReducedMotion();
   const isPrivate = project.visibility === "private";
@@ -77,6 +80,14 @@ export function ProjectCard({
         className,
       )}
     >
+      {href ? (
+        <Link
+          href={href}
+          aria-label={project.title}
+          className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-primary)]"
+        />
+      ) : null}
+
       <div className="flex items-center gap-2">
         {project.featured ? <Badge variant="accent">featured</Badge> : null}
         <Badge variant="category" category={project.category}>
@@ -126,7 +137,7 @@ export function ProjectCard({
         </ul>
       ) : null}
 
-      <div className="mt-auto flex flex-col gap-4">
+      <div className="relative z-20 mt-auto flex flex-col gap-4">
         <div className="flex flex-wrap items-center gap-2">
           {isPrivate ? (
             <span className="font-mono text-xs text-text-secondary">
