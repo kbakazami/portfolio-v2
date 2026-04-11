@@ -61,12 +61,13 @@
     }
   },
   "skills": {
-    "title": "Skills",
+    "sectionLabel": "skills",
+    "title": "My stack",
     "categories": {
       "frontend": "Frontend",
       "backend": "Backend",
       "devops": "DevOps / Cloud",
-      "tools": "Tools"
+      "tools": "Tools & Methods"
     }
   },
   "timeline": {
