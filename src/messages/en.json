@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "skills": "Skills",
+    "timeline": "Timeline",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Kba",
+    "title": "Full-Stack Developer",
+    "subtitle": "Future Tech Lead, passionate about cloud and modern architectures.",
+    "ctaProjects": "View my projects",
+    "ctaContact": "Get in touch",
+    "roles": {
+      "0": "Full-Stack Developer",
+      "1": "Future Tech Lead",
+      "2": "Cloud Enthusiast"
+    }
+  },
+  "about": {
+    "title": "About",
+    "bio": ""
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "A selection of pro, personal and lab work.",
+    "filters": {
+      "all": "All",
+      "pro": "Pro",
+      "perso": "Personal",
+      "lab": "Lab"
+    },
+    "viewCode": "View code",
+    "viewDemo": "Watch demo",
+    "viewLive": "Live site",
+    "viewDocs": "Documentation",
+    "privateNotice": "Client project — private code",
+    "caseStudy": {
+      "context": "Context",
+      "solution": "Solution",
+      "highlights": "Architecture",
+      "stack": "Stack",
+      "metrics": "Metrics",
+      "previous": "Previous project",
+      "next": "Next project"
+    }
+  },
+  "skills": {
+    "title": "Skills",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "devops": "DevOps / Cloud",
+      "tools": "Tools"
+    }
+  },
+  "timeline": {
+    "title": "Timeline",
+    "present": "Present"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Got an idea, a project, an opportunity? Let's talk.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send",
+      "sending": "Sending…",
+      "success": "Message sent, thanks!",
+      "error": "Oops, something went wrong."
+    }
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Error",
+    "backHome": "Back home",
+    "languageSwitch": "Language"
+  }
+}

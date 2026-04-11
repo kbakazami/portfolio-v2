@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #FAFAFA;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F0F0F5;
+  --text-primary: #1A1A2E;
+  --text-secondary: #6B6B80;
+  --accent-primary: #3B82F6;
+  --accent-secondary: #60A5FA;
+  --accent-gradient: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  --border: #E4E4EB;
+}
+
+.dark,
+:root {
+  --bg-primary: #0A0A0F;
+  --bg-secondary: #12121A;
+  --bg-tertiary: #1A1A25;
+  --text-primary: #E8E8ED;
+  --text-secondary: #8888A0;
+  --accent-primary: #3B82F6;
+  --accent-secondary: #60A5FA;
+  --accent-gradient: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  --border: #1F1F2E;
+}
+
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-border: var(--border);
+  --font-sans: var(--font-sans-body);
+  --font-mono: var(--font-mono-display);
+}
+
+html {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "projects": "Projets",
+    "skills": "Compétences",
+    "timeline": "Parcours",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Bonjour, je suis",
+    "name": "Kba",
+    "title": "Développeur Full-Stack",
+    "subtitle": "Futur Tech Lead, passionné par le cloud et les architectures modernes.",
+    "ctaProjects": "Voir mes projets",
+    "ctaContact": "Me contacter",
+    "roles": {
+      "0": "Full-Stack Developer",
+      "1": "Future Tech Lead",
+      "2": "Cloud Enthusiast"
+    }
+  },
+  "about": {
+    "title": "À propos",
+    "bio": ""
+  },
+  "projects": {
+    "title": "Projets",
+    "subtitle": "Une sélection de travaux pro, perso et lab.",
+    "filters": {
+      "all": "Tous",
+      "pro": "Pro",
+      "perso": "Perso",
+      "lab": "Lab"
+    },
+    "viewCode": "Voir le code",
+    "viewDemo": "Voir la démo",
+    "viewLive": "Site live",
+    "viewDocs": "Documentation",
+    "privateNotice": "Projet client — code privé",
+    "caseStudy": {
+      "context": "Contexte",
+      "solution": "Solution",
+      "highlights": "Architecture",
+      "stack": "Stack",
+      "metrics": "Métriques",
+      "previous": "Projet précédent",
+      "next": "Projet suivant"
+    }
+  },
+  "skills": {
+    "title": "Compétences",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "devops": "DevOps / Cloud",
+      "tools": "Outils"
+    }
+  },
+  "timeline": {
+    "title": "Parcours",
+    "present": "Aujourd'hui"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Une idée, un projet, une opportunité ? Parlons-en.",
+    "form": {
+      "name": "Nom",
+      "email": "Email",
+      "message": "Message",
+      "send": "Envoyer",
+      "sending": "Envoi…",
+      "success": "Message envoyé, merci !",
+      "error": "Oups, une erreur est survenue."
+    }
+  },
+  "common": {
+    "loading": "Chargement…",
+    "error": "Erreur",
+    "backHome": "Retour à l'accueil",
+    "languageSwitch": "Langue"
+  }
+}
