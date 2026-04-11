@@ -71,8 +71,29 @@
     }
   },
   "timeline": {
-    "title": "Timeline",
-    "present": "Present"
+    "sectionLabel": "timeline",
+    "title": "My path",
+    "present": "Present",
+    "entries": {
+      "aws": {
+        "date": "2025 — in progress",
+        "role": "AWS Cloud Practitioner",
+        "company": "Certification · in preparation",
+        "description": "Ramping up on AWS services and cloud fundamentals, working toward the official certification."
+      },
+      "magentizy": {
+        "date": "2023 — present",
+        "role": "Full-Stack Developer",
+        "company": "Magentizy · Belgium",
+        "description": "Building Magento 2 e-commerce platforms and internal tools, from design to deployment, for demanding clients."
+      },
+      "esgi": {
+        "date": "2022 — 2023",
+        "role": "Master's in Web Engineering",
+        "company": "ESGI · Lyon",
+        "description": "Advanced training in web architecture, DevOps and software engineering, alongside a busy professional activity."
+      }
+    }
   },
   "contact": {
     "title": "Contact",
