@@ -34,7 +34,7 @@ export function LocaleSwitcher() {
             disabled={isPending}
             aria-pressed={active}
             onClick={() => switchTo(l)}
-            className={`rounded-full px-2.5 py-1 uppercase tracking-wider transition-colors ${
+            className={`rounded-full px-2.5 py-1 uppercase tracking-wider transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-primary)] ${
               active
                 ? "bg-bg-tertiary text-text-primary"
                 : "text-text-secondary hover:text-text-primary"

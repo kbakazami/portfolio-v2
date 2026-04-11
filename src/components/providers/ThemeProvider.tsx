@@ -31,9 +31,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const stored = window.localStorage.getItem(STORAGE_KEY) as Theme | null;
     if (stored === "dark" || stored === "light") {
       setTheme(stored);
-    } else if (document.documentElement.classList.contains("dark")) {
-      setTheme("dark");
+      return;
     }
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    setTheme(prefersDark ? "dark" : "light");
   }, []);
 
   useIsomorphicLayoutEffect(() => {
