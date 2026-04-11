@@ -3,16 +3,48 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { ProjectCaseStudy } from "@/components/sections/ProjectCaseStudy";
-import { getProject, getProjectSlugs, getProjects } from "@/data/projects";
+import {
+  getProject,
+  getProjects,
+  getProjectSlugs,
+  type LocalizedProject,
+} from "@/data/projects";
 import { routing } from "@/i18n/routing";
+import {
+  loadAllProjectsForNav,
+  loadProjectBySlug,
+  loadProjectSlugs,
+} from "@/lib/portfolio-data";
 
 type PageParams = { locale: string; slug: string };
 
-export function generateStaticParams() {
-  const slugs = getProjectSlugs();
+export async function generateStaticParams() {
+  const sanitySlugs = await loadProjectSlugs();
+  const slugs =
+    sanitySlugs && sanitySlugs.length > 0 ? sanitySlugs : getProjectSlugs();
   return routing.locales.flatMap((locale) =>
     slugs.map((slug) => ({ locale, slug })),
   );
+}
+
+async function resolveProject(
+  slug: string,
+  locale: "fr" | "en",
+): Promise<{ project: LocalizedProject | null; all: LocalizedProject[] }> {
+  const [sanityProject, sanityList] = await Promise.all([
+    loadProjectBySlug(slug),
+    loadAllProjectsForNav(),
+  ]);
+
+  if (sanityProject && sanityList && sanityList.length > 0) {
+    return { project: sanityProject, all: sanityList };
+  }
+
+  const fallback = getProject(slug, locale);
+  return {
+    project: fallback ?? null,
+    all: getProjects(locale),
+  };
 }
 
 export async function generateMetadata({
@@ -21,7 +53,7 @@ export async function generateMetadata({
   params: Promise<PageParams>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const project = getProject(slug, locale as "fr" | "en");
+  const { project } = await resolveProject(slug, locale as "fr" | "en");
   if (!project) return {};
   return {
     title: `${project.title} — Kba`,
@@ -38,18 +70,17 @@ export default async function ProjectCaseStudyPage({
   setRequestLocale(locale);
 
   const typedLocale = locale as "fr" | "en";
-  const project = getProject(slug, typedLocale);
+  const { project, all } = await resolveProject(slug, typedLocale);
   if (!project) notFound();
 
-  const allProjects = getProjects(typedLocale);
-  const index = allProjects.findIndex((p) => p.slug === slug);
+  const index = all.findIndex((p) => p.slug === slug);
   const previous =
     index > 0
-      ? { slug: allProjects[index - 1].slug, title: allProjects[index - 1].title }
+      ? { slug: all[index - 1].slug, title: all[index - 1].title }
       : null;
   const next =
-    index >= 0 && index < allProjects.length - 1
-      ? { slug: allProjects[index + 1].slug, title: allProjects[index + 1].title }
+    index >= 0 && index < all.length - 1
+      ? { slug: all[index + 1].slug, title: all[index + 1].title }
       : null;
 
   const t = await getTranslations("projects");

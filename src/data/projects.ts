@@ -1,3 +1,5 @@
+import type { PortableTextBlock } from "@portabletext/react";
+
 import type { Project, ProjectCategory, ProjectMetric, ProjectVisibility } from "@/types";
 
 type Locale = "fr" | "en";
@@ -227,9 +229,11 @@ const PROJECTS_DATA: LocalizedProjectData[] = [
   },
 ];
 
+export type RichText = string | PortableTextBlock[];
+
 export type LocalizedProject = Project & {
-  context: string;
-  solution: string;
+  context: RichText;
+  solution: RichText;
   highlights: string[];
   metrics: ProjectMetric[];
 };

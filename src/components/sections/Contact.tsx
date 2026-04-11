@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import type { ContactData } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -16,7 +17,7 @@ type SocialLink = {
   href: string;
 };
 
-const SOCIAL_LINKS: SocialLink[] = [
+const FALLBACK_SOCIAL_LINKS: SocialLink[] = [
   { key: "github", label: "GitHub", href: "https://github.com/kbakazami" },
   {
     key: "linkedin",
@@ -26,13 +27,26 @@ const SOCIAL_LINKS: SocialLink[] = [
   { key: "email", label: "Email", href: "mailto:contact@kbakazami.dev" },
 ];
 
+function buildSocialLinks(data?: ContactData | null): SocialLink[] {
+  if (!data) return FALLBACK_SOCIAL_LINKS;
+  const result: SocialLink[] = [];
+  if (data.github) result.push({ key: "github", label: "GitHub", href: data.github });
+  if (data.linkedin) result.push({ key: "linkedin", label: "LinkedIn", href: data.linkedin });
+  if (data.email) {
+    const href = data.email.startsWith("mailto:") ? data.email : `mailto:${data.email}`;
+    result.push({ key: "email", label: "Email", href });
+  }
+  return result.length > 0 ? result : FALLBACK_SOCIAL_LINKS;
+}
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const INPUT_CLASSES =
   "w-full rounded-lg border border-border bg-bg-primary px-4 py-3 font-sans text-sm text-text-primary placeholder:text-text-secondary transition-colors duration-200 focus:border-[color:var(--accent-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-secondary)]";
 
-export function Contact() {
+export function Contact({ data }: { data?: ContactData | null }) {
   const t = useTranslations("contact");
+  const socialLinks = buildSocialLinks(data);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -204,7 +218,7 @@ export function Contact() {
               </Button>
 
               <ul className="flex flex-wrap items-center gap-2">
-                {SOCIAL_LINKS.map((link) => (
+                {socialLinks.map((link) => (
                   <li key={link.key}>
                     <a
                       href={link.href}

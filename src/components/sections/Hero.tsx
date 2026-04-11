@@ -5,6 +5,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 import { AnimatedText } from "@/components/animations/AnimatedText";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
+import type { HeroData } from "@/lib/portfolio-data";
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -33,9 +34,12 @@ function Item({
   );
 }
 
-export function Hero() {
+export function Hero({ data }: { data?: HeroData | null }) {
   const t = useTranslations("hero");
-  const roles = [t("roles.0"), t("roles.1"), t("roles.2")];
+  const roles = data?.heroTexts && data.heroTexts.length > 0
+    ? data.heroTexts
+    : [t("roles.0"), t("roles.1"), t("roles.2")];
+  const description = data?.description ?? t("description");
 
   return (
     <section
@@ -83,7 +87,7 @@ export function Hero() {
 
         <Item className="max-w-xl">
           <p className="text-base leading-relaxed text-text-secondary md:text-lg">
-            {t("description")}
+            {description}
           </p>
         </Item>
 

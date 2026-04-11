@@ -5,6 +5,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 import { FadeIn } from "@/components/animations/FadeIn";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import type { SkillsData } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
 type CategoryKey = "frontend" | "backend" | "devops" | "tools";
@@ -142,14 +143,51 @@ function AnimatedCell({ category }: { category: SkillCategory }) {
   );
 }
 
-export function Skills() {
+const CATEGORY_DOT: Record<CategoryKey, string> = {
+  frontend: "bg-blue-500",
+  backend: "bg-violet-500",
+  devops: "bg-emerald-500",
+  tools: "bg-amber-500",
+};
+
+function buildCategoriesFromSanity(
+  data: SkillsData,
+): SkillCategory[] {
+  const grouped: Record<CategoryKey, Skill[]> = {
+    frontend: [],
+    backend: [],
+    devops: [],
+    tools: [],
+  };
+  for (const skill of data.skills) {
+    if (!grouped[skill.category]) continue;
+    grouped[skill.category].push({
+      name: skill.name,
+      level: Math.min(Math.max(Math.round(skill.level ?? 3), 1), MAX_LEVEL),
+    });
+  }
+  return (Object.keys(grouped) as CategoryKey[])
+    .filter((key) => grouped[key].length > 0)
+    .map((key) => ({
+      key,
+      dotClassName: CATEGORY_DOT[key],
+      skills: grouped[key],
+    }));
+}
+
+export function Skills({ data }: { data?: SkillsData | null }) {
   const t = useTranslations("skills");
   const shouldReduceMotion = useReducedMotion();
+
+  const categories =
+    data && data.skills.length > 0
+      ? buildCategoriesFromSanity(data)
+      : CATEGORIES;
 
   const gridClassName =
     "mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4";
 
-  const cells = CATEGORIES.map((category) => (
+  const cells = categories.map((category) => (
     <AnimatedCell key={category.key} category={category} />
   ));
 
