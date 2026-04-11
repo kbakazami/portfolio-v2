@@ -32,16 +32,19 @@
     "p3": "Ce qui me passionne : <strong>l'architecture logicielle</strong>, <strong>le DevOps</strong> et <strong>le mentorat</strong>. Je construis des systèmes pensés pour durer, et j'aime partager ce que j'apprends avec les équipes autour de moi."
   },
   "projects": {
-    "title": "Projets",
+    "sectionLabel": "projets",
+    "title": "Ce que je construis",
     "subtitle": "Une sélection de travaux pro, perso et lab.",
+    "filtersLabel": "Filtres par catégorie",
     "filters": {
       "all": "Tous",
       "pro": "Pro",
       "perso": "Perso",
       "lab": "Lab"
     },
+    "back": "Projets",
     "viewCode": "Voir le code",
-    "viewDemo": "Voir la démo",
+    "viewDemo": "Vidéo demo",
     "viewLive": "Site live",
     "viewDocs": "Documentation",
     "privateNotice": "Projet client — code privé",
@@ -52,7 +55,9 @@
       "stack": "Stack",
       "metrics": "Métriques",
       "previous": "Projet précédent",
-      "next": "Projet suivant"
+      "next": "Projet suivant",
+      "galleryPrevious": "Image précédente",
+      "galleryNext": "Image suivante"
     }
   },
   "skills": {

@@ -32,14 +32,17 @@
     "p3": "What drives me: <strong>software architecture</strong>, <strong>DevOps</strong> and <strong>mentoring</strong>. I build systems meant to last, and I love sharing what I learn with the teams around me."
   },
   "projects": {
-    "title": "Projects",
+    "sectionLabel": "projects",
+    "title": "What I build",
     "subtitle": "A selection of pro, personal and lab work.",
+    "filtersLabel": "Filter by category",
     "filters": {
       "all": "All",
       "pro": "Pro",
       "perso": "Personal",
       "lab": "Lab"
     },
+    "back": "Projects",
     "viewCode": "View code",
     "viewDemo": "Watch demo",
     "viewLive": "Live site",
@@ -52,7 +55,9 @@
       "stack": "Stack",
       "metrics": "Metrics",
       "previous": "Previous project",
-      "next": "Next project"
+      "next": "Next project",
+      "galleryPrevious": "Previous image",
+      "galleryNext": "Next image"
     }
   },
   "skills": {

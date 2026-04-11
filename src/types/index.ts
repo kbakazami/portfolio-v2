@@ -17,6 +17,8 @@ export interface Project {
   featured: boolean;
   visibility: ProjectVisibility;
   technologies: string[];
+  context?: string;
+  solution?: string;
   highlights?: string[];
   metrics?: ProjectMetric[];
   githubUrl?: string;
