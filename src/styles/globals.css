@@ -60,6 +60,42 @@ body {
   color: var(--bg-primary);
 }
 
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(136, 136, 160, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(136, 136, 160, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  animation: hero-grid-drift 24s linear infinite;
+}
+
+.dark .hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(136, 136, 160, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(136, 136, 160, 0.12) 1px, transparent 1px);
+}
+
+@keyframes hero-grid-drift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 48px 48px, 48px 48px; }
+}
+
+.hero-glow {
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 50%,
+    rgba(59, 130, 246, 0.18) 0%,
+    rgba(139, 92, 246, 0.08) 35%,
+    transparent 70%
+  );
+  animation: hero-glow-pulse 8s ease-in-out infinite;
+}
+
+@keyframes hero-glow-pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
