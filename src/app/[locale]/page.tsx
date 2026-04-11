@@ -6,7 +6,9 @@ import { Hero } from "@/components/sections/Hero";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
 import { Timeline } from "@/components/sections/Timeline";
-import { loadPortfolioData } from "@/lib/portfolio-data";
+import { loadPortfolioData, loadProjectGithubStats } from "@/lib/portfolio-data";
+
+export const revalidate = 3600;
 
 export default async function Home({
   params,
@@ -17,12 +19,13 @@ export default async function Home({
   setRequestLocale(locale);
 
   const data = await loadPortfolioData();
+  const githubStats = await loadProjectGithubStats(data.projects);
 
   return (
     <>
       <Hero data={data.hero} />
       <About data={data.about} />
-      <Projects data={data.projects} />
+      <Projects data={data.projects} githubStats={githubStats} />
       <Skills data={data.skills} />
       <Timeline data={data.timeline} />
       <Contact data={data.contact} />

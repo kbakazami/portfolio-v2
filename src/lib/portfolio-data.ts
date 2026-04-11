@@ -1,6 +1,7 @@
 import type { PortableTextBlock } from "@portabletext/react";
 
 import type { LocalizedProject } from "@/data/projects";
+import { fetchGithubStats, parseGithubUrl, type GithubStats } from "@/lib/github";
 import {
   getAbout,
   getAllProjects,
@@ -177,6 +178,33 @@ export async function loadProjectSlugs(): Promise<string[] | null> {
   const slugs = await getProjectSlugs();
   if (!slugs || slugs.length === 0) return null;
   return slugs;
+}
+
+export type ProjectGithubStatsMap = Record<string, GithubStats>;
+
+export async function loadProjectGithubStats(
+  projects: LocalizedProject[] | null,
+): Promise<ProjectGithubStatsMap> {
+  if (!projects || projects.length === 0) return {};
+
+  const targets = projects.flatMap((project) => {
+    if (project.visibility === "private") return [];
+    const parsed = parseGithubUrl(project.githubUrl);
+    if (!parsed) return [];
+    return [{ id: project._id, ...parsed }];
+  });
+
+  const results = await Promise.all(
+    targets.map(async ({ id, owner, repo }) => {
+      const stats = await fetchGithubStats(owner, repo).catch(() => null);
+      return stats ? ([id, stats] as const) : null;
+    }),
+  );
+
+  return results.reduce<ProjectGithubStatsMap>((acc, entry) => {
+    if (entry) acc[entry[0]] = entry[1];
+    return acc;
+  }, {});
 }
 
 export async function loadAllProjectsForNav(): Promise<LocalizedProject[] | null> {
