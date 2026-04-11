@@ -96,7 +96,8 @@
     }
   },
   "contact": {
-    "title": "Contact",
+    "sectionLabel": "contact",
+    "title": "Travaillons ensemble",
     "subtitle": "Une idée, un projet, une opportunité ? Parlons-en.",
     "form": {
       "name": "Nom",
@@ -105,7 +106,16 @@
       "send": "Envoyer",
       "sending": "Envoi…",
       "success": "Message envoyé, merci !",
-      "error": "Oups, une erreur est survenue."
+      "error": "Oups, une erreur est survenue.",
+      "placeholders": {
+        "name": "Votre nom",
+        "email": "vous@exemple.com",
+        "message": "Parlez-moi de votre projet…"
+      },
+      "errors": {
+        "required": "Merci de remplir tous les champs.",
+        "email": "Adresse email invalide."
+      }
     }
   },
   "common": {
