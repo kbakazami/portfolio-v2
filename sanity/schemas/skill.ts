@@ -31,6 +31,12 @@ export const skill = defineType({
       validation: (r) => r.min(1).max(5),
     }),
     defineField({ name: "order", type: "number", hidden: true }),
+    defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+    }),
   ],
   orderings: [
     {

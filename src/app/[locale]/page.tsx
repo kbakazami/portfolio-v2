@@ -18,7 +18,7 @@ export default async function Home({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const data = await loadPortfolioData();
+  const data = await loadPortfolioData(locale);
   const githubStats = await loadProjectGithubStats(data.projects);
 
   return (

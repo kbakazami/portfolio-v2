@@ -19,7 +19,8 @@ import {
 type PageParams = { locale: string; slug: string };
 
 export async function generateStaticParams() {
-  const sanitySlugs = await loadProjectSlugs();
+  // Try Sanity slugs for the default locale; fall back to hardcoded data
+  const sanitySlugs = await loadProjectSlugs("fr");
   const slugs =
     sanitySlugs && sanitySlugs.length > 0 ? sanitySlugs : getProjectSlugs();
   return routing.locales.flatMap((locale) =>
@@ -32,8 +33,8 @@ async function resolveProject(
   locale: "fr" | "en",
 ): Promise<{ project: LocalizedProject | null; all: LocalizedProject[] }> {
   const [sanityProject, sanityList] = await Promise.all([
-    loadProjectBySlug(slug),
-    loadAllProjectsForNav(),
+    loadProjectBySlug(slug, locale),
+    loadAllProjectsForNav(locale),
   ]);
 
   if (sanityProject && sanityList && sanityList.length > 0) {
