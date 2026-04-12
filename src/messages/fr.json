@@ -9,6 +9,7 @@
   },
   "hero": {
     "available": "Disponible pour de nouvelles opportunités",
+    "availabilityLabel": "Ouvert aux opportunités — Disponible immédiatement",
     "greeting": "Salut, je suis",
     "name": "Kba",
     "title": "Développeur Full-Stack",
@@ -16,6 +17,8 @@
     "description": "Développeur full-stack avec une appétence forte pour le cloud, l'architecture et les produits bien conçus. Je construis des applications web robustes et des expériences soignées, de l'idée au déploiement.",
     "cta_projects": "Voir mes projets",
     "cta_contact": "Me contacter",
+    "ctaProjects": "Voir mes projets",
+    "ctaContact": "Me contacter",
     "roles": {
       "0": "Full-Stack Developer",
       "1": "Future Tech Lead",
