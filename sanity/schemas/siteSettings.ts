@@ -31,6 +31,12 @@ export const siteSettings = defineType({
       type: "array",
       of: [{ type: "string" }],
     }),
+    defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+    }),
   ],
   preview: {
     prepare: () => ({ title: "Site Settings" }),

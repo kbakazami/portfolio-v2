@@ -4,23 +4,36 @@
     "about": "About",
     "projects": "Projects",
     "skills": "Skills",
-    "timeline": "Timeline",
+    "timeline": "Journey",
     "contact": "Contact"
   },
   "hero": {
-    "availabilityLabel": "Available for new opportunities",
+    "available": "Available for new opportunities",
     "greeting": "Hi, I'm",
     "name": "Kba",
     "title": "Full-Stack Developer",
     "subtitle": "Future Tech Lead, passionate about cloud and modern architectures.",
     "description": "Full-stack developer with a strong taste for cloud, architecture and well-crafted products. I build robust web applications and polished experiences, from idea to deployment.",
-    "ctaProjects": "View my projects",
-    "ctaContact": "Get in touch",
+    "cta_projects": "See my work",
+    "cta_contact": "Get in touch",
     "roles": {
       "0": "Full-Stack Developer",
       "1": "Future Tech Lead",
       "2": "Cloud Enthusiast"
     }
+  },
+  "sections": {
+    "about_label": "about",
+    "about_title": "Who I am",
+    "projects_label": "projects",
+    "projects_title": "What I build",
+    "skills_label": "skills",
+    "skills_title": "My stack",
+    "timeline_label": "journey",
+    "timeline_title": "My path",
+    "contact_label": "contact",
+    "contact_title": "Let's work together",
+    "contact_subtitle": "Got a project in mind, a technical question, or an opportunity to discuss? I'm all ears."
   },
   "about": {
     "sectionLabel": "about",
@@ -36,18 +49,36 @@
     "title": "What I build",
     "subtitle": "A selection of pro, personal and lab work.",
     "filtersLabel": "Filter by category",
+    "filter_all": "All",
+    "filter_pro": "Pro",
+    "filter_perso": "Personal",
+    "filter_lab": "Lab",
     "filters": {
       "all": "All",
       "pro": "Pro",
       "perso": "Personal",
       "lab": "Lab"
     },
+    "featured": "featured",
     "back": "Projects",
+    "private_note": "Client project — private code",
+    "view_code": "View code",
+    "live_demo": "Demo",
+    "video_demo": "Video demo",
+    "docs": "Documentation",
+    "live_site": "Live site",
+    "prev_project": "Previous project",
+    "next_project": "Next project",
     "viewCode": "View code",
     "viewDemo": "Watch demo",
     "viewLive": "Live site",
     "viewDocs": "Documentation",
     "privateNotice": "Client project — private code",
+    "context": "Context",
+    "solution": "Solution",
+    "highlights": "Architecture highlights",
+    "stack": "Tech stack",
+    "metrics": "Metrics",
     "caseStudy": {
       "context": "Context",
       "solution": "Solution",
@@ -98,7 +129,15 @@
   "contact": {
     "sectionLabel": "contact",
     "title": "Let's work together",
-    "subtitle": "Got an idea, a project, an opportunity? Let's talk.",
+    "subtitle": "Got a project in mind, a technical question, or an opportunity to discuss? I'm all ears.",
+    "name_placeholder": "Your name",
+    "email_placeholder": "Your email",
+    "message_placeholder": "Your message...",
+    "send": "Send",
+    "sending": "Sending...",
+    "success": "Message sent! I'll get back to you soon.",
+    "error": "Something went wrong. Try again or reach out to me directly via email.",
+    "spam": "Request blocked. If this is unexpected, contact me via email.",
     "form": {
       "name": "Name",
       "email": "Email",
@@ -117,6 +156,13 @@
         "email": "Invalid email address."
       }
     }
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "footer": {
+    "copyright": "© 2026 kba.dev — built with Next.js & Sanity"
   },
   "common": {
     "loading": "Loading…",

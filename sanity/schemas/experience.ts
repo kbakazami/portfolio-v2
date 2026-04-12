@@ -32,6 +32,12 @@ export const experience = defineType({
       type: "blockContent",
     }),
     defineField({ name: "order", type: "number", hidden: true }),
+    defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+    }),
   ],
   orderings: [
     {

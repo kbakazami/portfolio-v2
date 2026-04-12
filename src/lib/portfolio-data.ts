@@ -133,14 +133,14 @@ function mapContact(settings: SanitySiteSettings | null): ContactData | null {
   };
 }
 
-export async function loadPortfolioData(): Promise<PortfolioData> {
+export async function loadPortfolioData(locale: string): Promise<PortfolioData> {
   const [projectsRaw, aboutRaw, skillsRaw, experiencesRaw, siteSettings] =
     await Promise.all([
-      getAllProjects(),
-      getAbout(),
-      getSkills(),
-      getExperiences(),
-      getSiteSettings(),
+      getAllProjects(locale),
+      getAbout(locale),
+      getSkills(locale),
+      getExperiences(locale),
+      getSiteSettings(locale),
     ]);
 
   const projects =
@@ -168,14 +168,15 @@ export async function loadPortfolioData(): Promise<PortfolioData> {
 
 export async function loadProjectBySlug(
   slug: string,
+  locale: string,
 ): Promise<LocalizedProject | null> {
-  const project = await getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug, locale);
   if (!project) return null;
   return mapProjectDetail(project);
 }
 
-export async function loadProjectSlugs(): Promise<string[] | null> {
-  const slugs = await getProjectSlugs();
+export async function loadProjectSlugs(locale: string): Promise<string[] | null> {
+  const slugs = await getProjectSlugs(locale);
   if (!slugs || slugs.length === 0) return null;
   return slugs;
 }
@@ -207,8 +208,8 @@ export async function loadProjectGithubStats(
   }, {});
 }
 
-export async function loadAllProjectsForNav(): Promise<LocalizedProject[] | null> {
-  const raw = await getAllProjects();
+export async function loadAllProjectsForNav(locale: string): Promise<LocalizedProject[] | null> {
+  const raw = await getAllProjects(locale);
   if (!raw || raw.length === 0) return null;
   return raw.map(mapProjectSummary);
 }

@@ -7,7 +7,7 @@ import { loadProjectSlugs } from "@/lib/portfolio-data";
 const SITE_URL = "https://kba.dev";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const sanitySlugs = await loadProjectSlugs();
+  const sanitySlugs = await loadProjectSlugs("fr");
   const slugs =
     sanitySlugs && sanitySlugs.length > 0 ? sanitySlugs : getFallbackSlugs();
 

@@ -28,11 +28,17 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem("project").title("Projects"),
       S.documentTypeListItem("experience").title("Experiences"),
       S.documentTypeListItem("skill").title("Skills"),
+      // Translation metadata created by the i18n plugin
+      S.documentTypeListItem("translation.metadata").title("Translations"),
       ...S.documentTypeListItems().filter(
         (item) =>
           item.getId() !== undefined &&
-          !["project", "experience", "skill", ...SINGLETONS].includes(
-            item.getId() as string,
-          ),
+          ![
+            "project",
+            "experience",
+            "skill",
+            "translation.metadata",
+            ...SINGLETONS,
+          ].includes(item.getId() as string),
       ),
     ]);
