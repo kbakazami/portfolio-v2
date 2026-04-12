@@ -2,7 +2,7 @@ import { groq } from "next-sanity";
 import type { PortableTextBlock } from "@portabletext/react";
 import type { Image as SanityImage } from "sanity";
 
-import { sanityClient } from "./client";
+import { sanityClient, sanityFetchOptions } from "./client";
 
 // ---------------------------------------------------------------------------
 // GROQ Queries — all document queries filter by language == $locale
@@ -178,7 +178,7 @@ export interface SanitySiteSettings {
 async function safeFetch<T>(query: string, params?: Record<string, unknown>): Promise<T | null> {
   if (!sanityClient) return null;
   try {
-    return await sanityClient.fetch<T>(query, params ?? {});
+    return await sanityClient.fetch<T>(query, params ?? {}, sanityFetchOptions);
   } catch (error) {
     if (process.env.NODE_ENV !== "production") {
       console.warn("[sanity] fetch failed, falling back:", error);
