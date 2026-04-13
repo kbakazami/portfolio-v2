@@ -13,7 +13,14 @@ export async function GET(req: NextRequest) {
   const secret = req.nextUrl.searchParams.get("secret");
 
   if (!secret || secret !== SANITY_REVALIDATE_SECRET) {
-    return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
+    return NextResponse.json({
+      message: "Invalid secret",
+      debug: {
+        envDefined: Boolean(SANITY_REVALIDATE_SECRET),
+        envLength: SANITY_REVALIDATE_SECRET?.length ?? 0,
+        receivedLength: secret?.length ?? 0,
+      },
+    }, { status: 401 });
   }
 
   revalidateTag("sanity", "default");
