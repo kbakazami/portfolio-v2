@@ -8,8 +8,6 @@ import { Skills } from "@/components/sections/Skills";
 import { Timeline } from "@/components/sections/Timeline";
 import { loadPortfolioData, loadProjectGithubStats } from "@/lib/portfolio-data";
 
-export const revalidate = 3600;
-
 export default async function Home({
   params,
 }: {

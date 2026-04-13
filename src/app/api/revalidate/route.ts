@@ -25,8 +25,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Revalidate the tag used by all Sanity fetches (immediate expiration)
-    revalidateTag("sanity", { expire: 0 });
+    // Revalidate the tag used by all Sanity fetches
+    revalidateTag("sanity", "default");
 
     // Always revalidate the homepage (all sections live there)
     revalidatePath("/fr");
