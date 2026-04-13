@@ -4,35 +4,6 @@ import { parseBody } from "next-sanity/webhook";
 
 const SANITY_REVALIDATE_SECRET = process.env.SANITY_REVALIDATE_SECRET;
 
-/**
- * GET /api/revalidate?secret=XXX
- * Manual revalidation trigger — use from a browser to test.
- * Remove this handler once the webhook is confirmed working.
- */
-export async function GET(req: NextRequest) {
-  const secret = req.nextUrl.searchParams.get("secret");
-
-  if (!secret || secret !== SANITY_REVALIDATE_SECRET) {
-    return NextResponse.json({
-      message: "Invalid secret",
-      debug: {
-        envDefined: Boolean(SANITY_REVALIDATE_SECRET),
-        envLength: SANITY_REVALIDATE_SECRET?.length ?? 0,
-        receivedLength: secret?.length ?? 0,
-      },
-    }, { status: 401 });
-  }
-
-  revalidateTag("sanity", "default");
-  revalidatePath("/fr");
-  revalidatePath("/en");
-
-  return NextResponse.json({
-    revalidated: true,
-    now: Date.now(),
-  });
-}
-
 export async function POST(req: NextRequest) {
   try {
     const { isValidSignature, body } = await parseBody<{
